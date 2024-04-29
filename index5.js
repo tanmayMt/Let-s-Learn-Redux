@@ -1,23 +1,35 @@
-const { createStore } = require("redux");
-//Add & get Products
+//Multiple reducers
+//Combine  multiple reducers
+
+const { createStore, combineReducers } = require("redux");
 
 
 
-// defining constants
+// product constants
 const GET_PRODUCTS = "GET_PRODUCTS";
 const ADD_PRODUCTS = "ADD_PRODUCTS";
+// cart constants
+const GET_CART_ITEMS = "GET_CART_ITEMS";
+const ADD_CART_ITEMS = "ADD_CART_ITEMS";
 
 
 
-// state
+
+// product states
 const initialProductState = {
   products: ["sugar", "salt"],
   numberOfProducts: 2,
 };
+// cart states
+const initialCartState = {
+  cart: ["sugar"],
+  numberOfProducts: 1,
+};
 
 
 
-// action 
+
+// product actions
 const getProductAction = () => {
   return {
     type: GET_PRODUCTS,
@@ -26,6 +38,18 @@ const getProductAction = () => {
 const addProductAction = (product) => {
   return {
     type: ADD_PRODUCTS,
+    payload: product,
+  };
+};
+// cart actions
+const getCartAction = () => {
+  return {
+    type: GET_CART_ITEMS,
+  };
+};
+const addCartAction = (product) => {
+  return {
+    type: ADD_CART_ITEMS,
     payload: product,
   };
 };
@@ -49,11 +73,34 @@ const productsReducer = (state = initialProductState, action) => {
       return state;
   }
 };
+const cartReducer = (state = initialCartState, action) => {
+  switch (action.type) {
+    case GET_CART_ITEMS:
+      return {
+        ...state,
+      };
+    case ADD_CART_ITEMS:
+      return {
+        cart: [...state.cart, action.payload],
+        numberOfProducts: state.numberOfProducts + 1,
+      };
+
+    default:
+      return state;
+  }
+};
+
+
+//Combine productsReducer & cartReducer Reducers
+const rootReduer = combineReducers({
+  productR: productsReducer,
+  cartR: cartReducer,
+});
 
 
 
 // Create store
-const store = createStore(productsReducer);
+const store = createStore(rootReduer);
 store.subscribe(() => {
   console.log(store.getState());
 });
@@ -63,4 +110,5 @@ store.subscribe(() => {
 // dispatch action
 store.dispatch(getProductAction());
 store.dispatch(addProductAction("pen"));
-store.dispatch(addProductAction("pencil"));
+store.dispatch(getCartAction());
+store.dispatch(addCartAction("salt"));
