@@ -1,4 +1,3 @@
-const { createStore } = require("redux");
 
 // defining constants
 const INCREMENT = "INCREMENT";
