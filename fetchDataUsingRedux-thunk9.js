@@ -96,15 +96,15 @@ const fetchData = () => {
     axios
       .get(TODOS_URL)
       .then((res) => {
-        console.log(res.data);
         const todos = res.data;
-        const titles = todos.map((todo) => todo.title);
-        // dispatch(getTodosSuccess(titles));
+        console.log(todos);
+        //const titles = todos.map((todo) => todo.title);
+        //dispatch(getTodosSuccess(titles));
       })
       .catch((err) => {
-        console.log(err.message);
         const error = err.message;
-        // dispatch(getTodosFailed(error));
+        console.log(error);
+        //dispatch(getTodosFailed(error));
       });
   };
 };
