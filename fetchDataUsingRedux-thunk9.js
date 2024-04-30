@@ -97,8 +97,9 @@ const fetchData = () => {
       .get(TODOS_URL)
       .then((res) => {
         const todos = res.data;
-        console.log(todos);
-        //const titles = todos.map((todo) => todo.title);
+        // console.log(todos);
+        const titles = todos.map((todo) => todo.title);
+        console.log(titles);
         //dispatch(getTodosSuccess(titles));
       })
       .catch((err) => {
