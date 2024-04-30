@@ -99,13 +99,13 @@ const fetchData = () => {
         const todos = res.data;
         // console.log(todos);
         const titles = todos.map((todo) => todo.title);
-        console.log(titles);
-        //dispatch(getTodosSuccess(titles));
+        //console.log(titles);
+        dispatch(getTodosSuccess(titles));
       })
       .catch((err) => {
         const error = err.message;
-        console.log(error);
-        //dispatch(getTodosFailed(error));
+        //console.log(error);
+        dispatch(getTodosFailed(error));
       });
   };
 };
