@@ -91,6 +91,7 @@ const cartReducer = (state = initialCartState, action) => {
 };
 
 
+
 //Combine productsReducer & cartReducer Reducers
 const rootReduer = combineReducers({
   productR: productsReducer,
